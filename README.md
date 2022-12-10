@@ -1,4 +1,4 @@
-# correctBmatrixOverflow
+# Scripts to correct for B-matrix overflow
 Matlab scripts to read b-values and b-vectors from Siemens raw data (twix) files and DICOMs.
 
 The scripts account for an integer overflow situation that can occur when b-values of more than about 16,000 s/mm<sup>2</sup> are used.
