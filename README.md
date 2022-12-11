@@ -8,7 +8,6 @@ However some user sequences (especially those installed on Connectom scanners) o
 
 ## Usage
 ### Read from DICOM directory
-Running
 ```matlab
 readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
 ```
@@ -16,7 +15,6 @@ will read in all the DICOM files in `input_dicom_folder` and write out the *b*-v
 Note that this requires that the directory contains files corresponding to only one acquisition, otherwise the *b*-vectors and *b*-values from multiple acquisitions would be concatenated.
 
 ### Read from twix file
-Running
 ```matlab
 readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
 ```
