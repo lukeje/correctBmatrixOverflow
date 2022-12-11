@@ -7,6 +7,21 @@ However some user sequences (especially those installed on Connectom scanners) o
 *b*-values above about 49,000 s/mm<sup>2</sup> will still have problems with integer overflow which these scripts will not be able to correct.
 
 ## Usage
+### Read from DICOM directory
+Running
+```matlab
+readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
+```
+will read in all the DICOM files in `input_dicom_folder` and write out the *b*-vectors and *b*-values to `output_folder/output_name.bvec` and `output_folder/output_name.bval`, respectively.
+Note that this requires that the directory contains files corresponding to only one acquisition, otherwise the *b*-vectors and *b*-values from multiple acquisitions would be concatenated.
+
+### Read from twix file
+Running
+```matlab
+readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
+```
+will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
+Note that this assumes that different diffusion encodings are indexed by the repetition index.
 
 ## Installation
 This toolbox can be installed using git. 
