@@ -12,14 +12,21 @@ However some user sequences (especially those installed on Connectom scanners) o
 readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
 ```
 will read in all the DICOM files in `input_dicom_folder` and write out the *b*-vectors and *b*-values to `output_folder/output_name.bvec` and `output_folder/output_name.bval`, respectively.
-Note that this requires that the directory contains files corresponding to only one acquisition, otherwise the *b*-vectors and *b*-values from multiple acquisitions would be concatenated.
+
+Notes:
+- The input directory must only contain DICOM files. 
+- The DICOM files in the input directory must correspond to only one acquisition, otherwise the *b*-vectors and *b*-values from multiple acquisitions would be concatenated.
+- Acquisition order is not (currently) checked; it is assumed that this matches the order of the files returned by running [`dir`](https://mathworks.com/help/matlab/ref/dir.html) on the input folder.
 
 ### Read from twix file
 ```matlab
 readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
 ```
 will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
-Note that this assumes that different diffusion encodings are indexed by the repetition index.
+
+Notes:
+- [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see "Dependencies" below).
+- This script assumes that different diffusion encodings are indexed by the "repetition" index.
 
 ## Installation
 This toolbox can be installed using git. 
@@ -30,8 +37,8 @@ git clone https://github.com/lukeje/correctBmatrixOverflow
 The folder `correctBmatrixOverflow` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
 ## Dependencies
-This toolbox requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the  [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
+This toolbox requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
 
 ## Current status
-These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11 where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.
+These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.
 It is the responsibility of the user to check that the results of using these scripts are sensible.
