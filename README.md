@@ -16,7 +16,7 @@ will read in all the DICOM files in the input folder `input_dicom_folder` and wr
 Notes:
 - The input folder must only contain DICOM files. 
 - The DICOM files in the input folder must correspond to only one acquisition, otherwise the *b*-vectors and *b*-values from multiple acquisitions would be concatenated.
-- If there are multiple files per volume (i.e. the mosaic output option was not used on the scanner) then there will be one *b*-vector and *b*-value per slice rather than per volume in the output files.
+- If there are multiple files per volume (e.g. because the mosaic output option was not used on the scanner) then there will be one *b*-vector and *b*-value per image (slice) rather than per volume in the output files.
 - Acquisition order is not (currently) checked; it is assumed that this matches the order of the files returned by running [`dir`](https://mathworks.com/help/matlab/ref/dir.html) on the input folder.
 - The Siemens CSA DICOM fields must be present in the DICOM files.
 
@@ -39,9 +39,9 @@ git clone https://github.com/lukeje/correctBmatrixOverflow
 The folder `correctBmatrixOverflow` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
 ## Dependencies
-This toolbox requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
+`readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
 
 ## Current status
 These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.
-Older and newer software versions may differ in the information contained in the twix and DICOM headers, and therefore not work.
+Different software versions and sequences may differ in the information contained in the twix and DICOM headers, and therefore not work.
 It is the responsibility of the user to check that the results of using these scripts are sensible.
