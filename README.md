@@ -19,6 +19,7 @@ Notes:
 - If there are multiple files per volume (e.g. because the mosaic output option was not used on the scanner) then there will be one *b*-vector and *b*-value per image (slice) rather than per volume in the output files.
 - Acquisition order is not (currently) checked; it is assumed that this matches the order of the files returned by running [`dir`](https://mathworks.com/help/matlab/ref/dir.html) on the input folder.
 - The Siemens CSA DICOM fields must be present in the DICOM files.
+- Due to differences in the definition of NIfTi and DICOM image spaces, the polarity of the output vectors may need to be flipped to use them to process NIfTi-converted data. This should be carefully checked by the user, e.g. by using [`dwigradcheck`](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwigradcheck.html) from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/index.html) or through visual inspection of the output vector orientations from a DTI fit.
 
 ### Read from twix file
 ```matlab
