@@ -39,6 +39,9 @@ git clone https://github.com/lukeje/correctBmatrixOverflow
 ```
 The folder `correctBmatrixOverflow` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
+Alternatively the code can be downloaded as a [zip file](https://github.com/lukeje/correctBmatrixOverflow/archive/refs/heads/main.zip).
+After unzipping the code to an appropriate directory, the folder `correctBmatrixOverflow-main` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
+
 ## Dependencies
 `readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
 
