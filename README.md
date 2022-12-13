@@ -6,6 +6,10 @@ This is not usually achievable with Siemens product diffusion sequences as they 
 However some user sequences (especially those installed on Connectom scanners) override this limitation in order to make best use of the possibilities of the scanner.
 *b*-values above about 49,000 s/mm<sup>2</sup> will still have problems with integer overflow which these scripts will not be able to correct for.
 
+For *b*-values from around 16,000 to 30,000 s/mm<sup>2</sup> the main effect of this bug seems to be just a flip of the polarity of the affected vectors.
+This means that diffusion metrics are largely unaffected because conventional diffusion encoding does not encode polarity.
+However using the corrected vectors should improve eddy-current correction (using e.g. [eddy](https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/eddy)) and thus improve data quality.
+
 ## Usage
 ### Read from folder containing DICOM files
 ```matlab
