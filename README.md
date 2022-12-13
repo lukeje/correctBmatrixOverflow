@@ -32,7 +32,7 @@ readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/')
 will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
 
 Notes:
-- [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see "Dependencies" below).
+- [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see [Dependencies](#dependencies) below).
 - This script assumes that different diffusion encodings are indexed by the "repetition" index.
 
 ## Installation
@@ -47,6 +47,8 @@ Alternatively the code can be downloaded as a [zip file](https://github.com/luke
 After unzipping the code to an appropriate directory, the folder `correctBmatrixOverflow-main` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
 ## Dependencies
+`readBvecsFromDicom` requires the Matlab [image processing toolbox](https://mathworks.com/help/images/index.html).
+
 `readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
 
 ## Current status
