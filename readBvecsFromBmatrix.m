@@ -1,15 +1,19 @@
 function [bVectors,bValues] = readBvecsFromBmatrix(B,bNominal)
-%readBvecsFromBmatrix 
+%readBvecsFromBmatrix Read b-vectors and b-values from a Siemens twix-like B-matrix representation
 %
 % Input:
 %   B: 6 x number of volumes array containing the elements of the B-matrix
 %   bNominal: 1 x number of volumes array containing the nominal b-values
 %
+% Output:
+%   bVectors: 3 x number of volumes array containing the b-vectors
+%   bValues: 1 x number of volumes vector containing the b-values 
+%
 % Assumes B(:,n) is a vector of the six unique elements of the B-matrix in the
 % order xx yy zz xy xz yz. The sign of the diagonal elements should reflect
 % the sign of the elements in the gradient vector in line with the scheme
 % used in Siemens diffusion sequences. bNominal from the DICOM or TWIX
-% header is used to check for integer overflow from how the B-matrix is
+% header is used to check for integer overflow in the B-matrix as it was
 % stored in the TWIX header.
 %
 % ledwards@cbs.mpg.de
@@ -61,7 +65,6 @@ for bIdx = 1:nRep
     vec = vec*sign(vec'*(s.*abs(vec)));
 
     bVectors(:,bIdx) = vec;
-
 end
 
 end

@@ -1,11 +1,14 @@
 function readBvecsFromDicom(infolder, outfolder, basename)
-%readBvecsFromDicom
+%readBvecsFromDicom Read b-vectors and b-values from Siemens DICOM files
+%
+% Requires:
+%   Matlab image processing toolbox
 %
 % Examples:
-%   infolder = 'my_dicom_folder/';
-%   outfolder = 'my_output_folder/';
-%   basename = 'my_output_filename';
-%   readBvecsFromDicom(infolder, outfolder, basename);
+%     readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
+%   will read in all the DICOM files in the input folder `input_dicom_folder` and write
+%   out the *b*-vectors and *b*-values to `output_folder/output_name.bvec` and
+%   `output_folder/output_name.bval`, respectively.
 %
 % ledwards@cbs.mpg.de
 

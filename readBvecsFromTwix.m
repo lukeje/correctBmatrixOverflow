@@ -1,14 +1,15 @@
 function readBvecsFromTwix(infolder, infile, outfolder)
-%readBvecsFromTwix 
+%readBvecsFromTwix Read b-vectors and b-values from a Siemens twix raw data file
 %
 % Requires:
 %   mapVBVD from https://github.com/pehses/mapVBVD
 %
 % Examples:
-%   infolder = 'my_input_folder/';
-%   infile = 'my_twix_file.dat';
-%   outfolder = 'my_output_folder/';
-%   readBvecsFromTwix(infolder, infile, outfolder);
+%     readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
+%   will read in the twix file `input_twix_folder/input_twix_file.dat` and write out
+%   the *b*-vectors and *b*-values of the last acquired line in each repetition to
+%   `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`,
+%   respectively.
 %
 % ledwards@cbs.mpg.de
 

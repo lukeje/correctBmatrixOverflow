@@ -1,5 +1,5 @@
 function saveBvecBval(bVectors,bValues,outfolder,basename)
-%saveBvecBval Output b-vectors and b-values to bvec and bval text files.
+%saveBvecBval Output b-vectors and b-values to bvec and bval text files
 %
 % ledwards@cbs.mpg.de
 
