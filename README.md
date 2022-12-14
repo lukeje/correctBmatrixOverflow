@@ -25,6 +25,13 @@ Notes:
 - The Siemens CSA DICOM fields `B_value`, `B_matrix`, and `DiffusionGradientDirection` must be present in the DICOM files.
 - Due to differences in the definition of NIfTi and DICOM image spaces, the polarity of the output vectors may need to be flipped to use them to process NIfTi-converted data. This should be carefully checked by the user, e.g. by using [`dwigradcheck`](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwigradcheck.html) from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/index.html) or through [visual inspection of the output vector orientations from a DTI fit](http://camino.cs.ucl.ac.uk/index.php?n=Tutorials.DTI#dt_fit).
 
+Optionally a 3×3 transformation matrix may be supplied which will rotate/flip the *b*-vectors before saving them.
+As an example, the following code would flip the second component of the *b*-vectors:
+```matlab
+T = diag([1,-1,1]);
+readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name', T);
+```
+
 ### Read from twix file
 ```matlab
 readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
@@ -34,6 +41,7 @@ will read in the twix file `input_twix_folder/input_twix_file.dat` and write out
 Notes:
 - [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see [Dependencies](#dependencies) below).
 - This script assumes that different diffusion encodings are indexed by the "repetition" index.
+- A transformation matrix may be supplied in the same way as in the DICOM example.
 
 ## Installation
 This toolbox can be installed using git. 
