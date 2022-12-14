@@ -1,4 +1,4 @@
-function readBvecsFromTwix(infolder, infile, outfolder)
+function readBvecsFromTwix(infolder, infile, outfolder, T)
 %readBvecsFromTwix Read b-vectors and b-values from a Siemens twix raw data file
 %
 % Requires:
@@ -11,9 +11,19 @@ function readBvecsFromTwix(infolder, infile, outfolder)
 %   `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`,
 %   respectively.
 %
+%     readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/', diag([1,-1,1]));
+%   will do the same as the previous example, but apply the transformation matrix
+%   diag([1,-1,1]) to the b-vectors before saving them. This is useful to 
+%   e.g. apply the transformation from DICOM to NIfTi space.
+%
 % ledwards@cbs.mpg.de
 
 [~,~]=mkdir(outfolder);
+
+% If user transform T is not supplied, then use identity transform (i.e. do nothing)
+if ~exist('T','var')
+    T=eye(3);
+end
 
 %% read in data
 dat=mapVBVD(fullfile(infolder,infile));
@@ -49,6 +59,6 @@ bNominal=iceParams(7,:) -k;
 
 %% output bvals and bvecs
 [~,basename,~]=fileparts(infile);
-saveBvecBval(bVectors,bValues,outfolder,basename);
+saveBvecBval(bVectors,bValues,outfolder,basename,T);
 
 end

@@ -1,4 +1,4 @@
-function [bVectors,bValues] = readBvecsFromBmatrix(B,bNominal)
+function [bVectors,bValues] = readBvecsFromBmatrix(B, bNominal)
 %readBvecsFromBmatrix Read b-vectors and b-values from a Siemens twix-like B-matrix representation
 %
 % Input:
