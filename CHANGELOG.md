@@ -1,7 +1,7 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
-## [unreleased]
+## [v0.3.0]
 - also output nominal b-values
 
 ## [v0.2.0]
