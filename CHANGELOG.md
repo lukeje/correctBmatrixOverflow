@@ -2,6 +2,7 @@
 This changelog uses [semantic versioning](https://semver.org/)
 
 ## [unreleased]
+- also output nominal b-values
 
 ## [v0.2.0]
 - added ability to apply a transformation before saving b-vectors

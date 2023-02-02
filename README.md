@@ -16,6 +16,7 @@ However using the corrected vectors should improve eddy-current correction (usin
 readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
 ```
 will read in all the DICOM files in the input folder `input_dicom_folder` and write out the *b*-vectors and *b*-values to `output_folder/output_name.bvec` and `output_folder/output_name.bval`, respectively.
+It will also output the nominal *b*-values to `output_folder/output_name_nominal.bval`.
 
 Notes:
 - The input folder must only contain DICOM files. 
@@ -23,7 +24,7 @@ Notes:
 - If there are multiple files per volume (e.g. because the mosaic output option was not used on the scanner) then there will be one *b*-vector and *b*-value per image (slice) rather than per volume in the output files.
 - Acquisition order is not (currently) checked; it is assumed that this matches the order of the files returned by running [`dir`](https://mathworks.com/help/matlab/ref/dir.html) on the input folder.
 - The Siemens CSA DICOM fields `B_value`, `B_matrix`, and `DiffusionGradientDirection` must be present in the DICOM files.
-- Due to differences in the definition of NIfTi and DICOM image spaces, the polarity of the output vectors may need to be flipped to use them to process NIfTi-converted data. This should be carefully checked by the user, e.g. by using [`dwigradcheck`](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwigradcheck.html) from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/index.html) or through [visual inspection of the output vector orientations from a DTI fit](http://camino.cs.ucl.ac.uk/index.php?n=Tutorials.DTI#dt_fit).
+- Due to differences in the definition of NIfTI and DICOM image spaces, the polarity of the output vectors may need to be flipped to use them to process NIfTI-converted data. This should be carefully checked by the user, e.g. by using [`dwigradcheck`](https://mrtrix.readthedocs.io/en/latest/reference/commands/dwigradcheck.html) from [MRtrix3](https://mrtrix.readthedocs.io/en/latest/index.html) or through [visual inspection of the output vector orientations from a DTI fit](http://camino.cs.ucl.ac.uk/index.php?n=Tutorials.DTI#dt_fit).
 
 Optionally a 3×3 transformation matrix may be supplied which will rotate/flip the *b*-vectors before saving them.
 As an example, the following code would flip the second component of the *b*-vectors:
@@ -37,6 +38,7 @@ readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name', T);
 readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
 ```
 will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
+It will also output the nominal *b*-values to `output_folder/input_twix_file_nominal.bval`.
 
 Notes:
 - [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see [Dependencies](#dependencies) below).

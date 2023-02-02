@@ -1,4 +1,4 @@
-function readBvecsFromDicom(infolder, outfolder, basename, T)
+function readBvecsFromDicom(infolder, outfolder, output_name, T)
 %readBvecsFromDicom Read b-vectors and b-values from Siemens DICOM files
 %
 % Requires:
@@ -8,12 +8,13 @@ function readBvecsFromDicom(infolder, outfolder, basename, T)
 %     readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name');
 %   will read in all the DICOM files in the input folder `input_dicom_folder` and write
 %   out the *b*-vectors and *b*-values to `output_folder/output_name.bvec` and
-%   `output_folder/output_name.bval`, respectively.
+%   `output_folder/output_name.bval`, respectively. It will also output the nominal 
+%   *b*-values to `output_folder/output_name_nominal.bval`.
 %
 %     readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name', diag([1,-1,1]));
 %   will do the same as the previous example, but apply the transformation matrix
 %   diag([1,-1,1]) to the b-vectors before saving them. This is useful to 
-%   e.g. apply the transformation from DICOM to NIfTi space.
+%   e.g. apply the transformation from DICOM to NIfTI space.
 %
 % ledwards@cbs.mpg.de
 
@@ -67,6 +68,10 @@ end
 [bVectors,bValues]=readBvecsFromBmatrix(B,bNominal);
 
 %% output bvals and bvecs
-saveBvecBval(bVectors,bValues,outfolder,basename,T);
+saveBvec(bVectors,outfolder,output_name,T);
+saveBval(bValues,outfolder,output_name);
+
+% Also output nominal b-values in case they are needed
+saveBval(bNominal,outfolder,[output_name,'_nominal']);
 
 end

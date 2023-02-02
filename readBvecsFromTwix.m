@@ -9,12 +9,13 @@ function readBvecsFromTwix(infolder, infile, outfolder, T)
 %   will read in the twix file `input_twix_folder/input_twix_file.dat` and write out
 %   the *b*-vectors and *b*-values of the last acquired line in each repetition to
 %   `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`,
-%   respectively.
+%   respectively. It will also output the nominal *b*-values to 
+%   `output_folder/input_twix_file_nominal.bval`.
 %
 %     readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/', diag([1,-1,1]));
 %   will do the same as the previous example, but apply the transformation matrix
 %   diag([1,-1,1]) to the b-vectors before saving them. This is useful to 
-%   e.g. apply the transformation from DICOM to NIfTi space.
+%   e.g. apply the transformation from DICOM to NIfTI space.
 %
 % ledwards@cbs.mpg.de
 
@@ -59,6 +60,11 @@ bNominal=iceParams(7,:) -k;
 
 %% output bvals and bvecs
 [~,basename,~]=fileparts(infile);
-saveBvecBval(bVectors,bValues,outfolder,basename,T);
+
+saveBvec(bVectors,outfolder,basename,T);
+saveBval(bValues,outfolder,basename);
+
+% Also output nominal b-values in case they are needed
+saveBval(bNominal,outfolder,[basename,'_nominal']);
 
 end

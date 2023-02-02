@@ -1,9 +1,9 @@
-function saveBvecBval(bVectors, bValues, outfolder, basename, T)
-%saveBvecBval Output b-vectors and b-values to bvec and bval text files
+function saveBvec(bVectors, outfolder, basename, T)
+%saveBvec Output b-vectors to bvec text file
 %
 % Optionally rotates/flips the b-vectors using a 3x3 transform "T" before
 % saving the b-vectors. This is useful to e.g. apply the transformation from 
-% DICOM to NIfTi space.
+% DICOM to NIfTI space.
 %
 % ledwards@cbs.mpg.de
 
@@ -22,10 +22,6 @@ fprintf(fid, '\n');
 fprintf(fid, '%.16g ',bVectors(2,:));
 fprintf(fid, '\n');
 fprintf(fid, '%.16g ',bVectors(3,:));
-fclose(fid);
-
-fid = fopen(fullfile(outfolder, [basename '.bval']),'w');
-fprintf(fid, '%.16g ',bValues(1,:));
 fclose(fid);
 
 end
