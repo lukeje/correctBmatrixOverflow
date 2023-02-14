@@ -46,20 +46,33 @@ Notes:
 - A transformation matrix may be supplied in the same way as in the DICOM example.
 
 ## Installation
-This toolbox can be installed using git. 
+### Using git
 First navigate to an appropriate directory and then run:
-```
+```sh
 git clone https://github.com/lukeje/correctBmatrixOverflow
 ```
 The folder `correctBmatrixOverflow` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
-Alternatively the code can be downloaded as a [zip file](https://github.com/lukeje/correctBmatrixOverflow/archive/refs/heads/main.zip).
+If you want to read in *b*-vectors and -values from twix files, then you will also need to install [mapVBVD](https://github.com/pehses/mapVBVD).
+For convenience, this has been added as a git submodule which can be installed by running
+```sh
+cd correctBmatrixOverflow
+git submodule update --init
+```
+after cloning the `correctBmatrixOverflow` repository.
+You will then need to additionally add the subfolder `mapVBVD` to your Matlab path.
+
+### As a zip file
+The code can be downloaded as a [zip file](https://github.com/lukeje/correctBmatrixOverflow/archive/refs/heads/main.zip).
 After unzipping the code to an appropriate directory, the folder `correctBmatrixOverflow-main` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
+
+If you want to read in *b*-vectors and -values from twix files, then you will need to add the files from [mapVBVD](https://github.com/pehses/mapVBVD) to the folder `mapVBVD`.
+You will then need to additionally add the subfolder `mapVBVD` to your Matlab path.
 
 ## Dependencies
 `readBvecsFromDicom` requires the Matlab [image processing toolbox](https://mathworks.com/help/images/index.html).
 
-`readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-values and *b*-vectors from Siemens twix files.
+`readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-vectors and -values from Siemens twix files.
 
 ## Current status
 These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.

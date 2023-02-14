@@ -1,6 +1,9 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
+## [unreleased]
+Added mapVBVD as a submodule
+
 ## [v0.3.0]
 - also output nominal b-values
 
