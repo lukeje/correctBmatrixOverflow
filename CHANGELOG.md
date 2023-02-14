@@ -1,7 +1,7 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
-## [unreleased]
+## [v0.4.0]
 Added mapVBVD as a submodule
 
 ## [v0.3.0]
