@@ -40,6 +40,14 @@ readBvecsFromTwix('input_twix_folder/input_twix_file.dat', 'output_folder/');
 will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
 It will also output the nominal *b*-values to `output_folder/input_twix_file_nominal.bval`.
 
+You can alternatively provide an already generated twix object, for example:
+```matlab
+twixobj = mapVBVD('input_twix_folder/input_twix_file.dat')
+readBvecsFromTwix(twixobj, 'output_folder/');
+```
+which will do the same as the first example.
+This can be useful to avoid having to repeat reading in the twix object if it is already being used elsewhere in a script.
+
 Notes:
 - [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see [Dependencies](#dependencies) below).
 - This script assumes that different diffusion encodings are indexed by the "repetition" index.
