@@ -1,7 +1,7 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
-## [unreleased]
+## [v0.5.0]
 - Breaking change: `readBvecsFromTwix` now only takes one file argument.
 Replace calls using the previous format `readBvecsFromTwix(infolder,infile,outfolder)` with `readBvecsFromTwix(fullfile(infolder,infile),outfolder)`
 - Option to provide twix object from mapVBVD rather than a filename to `readBvecsFromTwix`
