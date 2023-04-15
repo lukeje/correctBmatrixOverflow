@@ -1,6 +1,10 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
+## [unreleased]
+- Breaking change: `readBvecsFromTwix` now only takes one file argument.
+Replace calls using the previous format `readBvecsFromTwix(infolder,infile,outfolder)` with `readBvecsFromTwix(fullfile(infolder,infile),outfolder)`
+
 ## [v0.4.0]
 Added mapVBVD as a submodule
 

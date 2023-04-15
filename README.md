@@ -35,7 +35,7 @@ readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name', T);
 
 ### Read from twix file
 ```matlab
-readBvecsFromTwix('input_twix_folder/', 'input_twix_file.dat', 'output_folder/');
+readBvecsFromTwix('input_twix_folder/input_twix_file.dat', 'output_folder/');
 ```
 will read in the twix file `input_twix_folder/input_twix_file.dat` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_twix_file.bvec` and `output_folder/input_twix_file.bval`, respectively.
 It will also output the nominal *b*-values to `output_folder/input_twix_file_nominal.bval`.
