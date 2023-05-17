@@ -1,6 +1,10 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
+## [unreleased]
+- ensure output from DICOM images is in acquisition order
+- provide convenience function `transformForNifti` to calculate the required transform to take *b*-vectors from scanner space to NIfTI space
+
 ## [v0.5.0]
 - Breaking change: `readBvecsFromTwix` now only takes one file argument.
 Replace calls using the previous format `readBvecsFromTwix(infolder,infile,outfolder)` with `readBvecsFromTwix(fullfile(infolder,infile),outfolder)`
@@ -10,10 +14,10 @@ Replace calls using the previous format `readBvecsFromTwix(infolder,infile,outfo
 Added mapVBVD as a submodule
 
 ## [v0.3.0]
-- also output nominal b-values
+- also output nominal *b*-values
 
 ## [v0.2.0]
-- added ability to apply a transformation before saving b-vectors
+- added ability to apply a transformation before saving *b*-vectors
 - removed default DICOM output basename
 - increased output precision
 

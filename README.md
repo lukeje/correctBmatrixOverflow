@@ -32,6 +32,8 @@ As an example, the following code would flip the second component of the *b*-vec
 T = diag([1,-1,1]);
 readBvecsFromDicom('input_dicom_folder/', 'output_folder/', 'output_name', T);
 ```
+A convenience function `transformForNifti` is provided which takes a NIfTI file as input, and outputs a transformation matrix which takes the *b*-vectors from scanner space to NIfTI image space.
+It is assumed that the NIfTI file is from the same acquisition as the b-vectors and that the transform in the NIfTI file is the transform from scanner space to image space (i.e. no re-alignment has been performed).
 
 ### Read from twix file
 ```matlab
