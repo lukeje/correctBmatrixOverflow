@@ -38,13 +38,14 @@ try % run in try catch so we still reset the dicom dictionary back to "oldDictFi
 
     nRep=length(files);
     bNominal=zeros(1,nRep);
+    t=zeros(1,nRep);
     B=zeros(6,nRep);
     vNominal=zeros(3,nRep);
     for n = 1:nRep
         % Read dicom fields using Matlab objects. Faster than using dicominfo; see here: 
         % https://de.mathworks.com/matlabcentral/answers/78315-can-i-read-a-single-field-using-dicominfo#answer_452571
         di=images.internal.dicom.DICOMFile(fullfile(files(n).folder,files(n).name));
-        
+        t(n) = di.getAttributeByName('AcquisitionNumber');
         % Use "typecast" so still works when info on DICOM header types was lost and Matlab returns uint8 vector
         B_tmp=typecast(di.getAttributeByName('B_matrix'),'double');
         if ~isempty(B_tmp) % empty for b=0 acquisitions
@@ -64,8 +65,13 @@ catch ME
     rethrow(ME)
 end
 
+% Make sure that the output will match the acquisition order
+[~,ordering] = sort(t);
+B = B(:,ordering);
+bNominal = bNominal(ordering);
+
 %% compute bvals and bvecs
-[bVectors,bValues]=readBvecsFromBmatrix(B,bNominal);
+[bVectors,bValues] = readBvecsFromBmatrix(B,bNominal);
 
 %% output bvals and bvecs
 saveBvec(bVectors,outfolder,output_name,T);

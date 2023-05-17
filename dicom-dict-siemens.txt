@@ -15,5 +15,5 @@
 (0019,100C)	IS	B_value	1
 (0019,100D)	CS	DiffusionDirectionality	1
 (0019,100E)	FD	DiffusionGradientDirection	3
-(0019,100F)	SH	GradientMode	1
 (0019,1027)	FD	B_matrix	6
+(0020,0012) IS  AcquisitionNumber   1
