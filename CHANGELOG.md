@@ -1,7 +1,7 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
-## [unreleased]
+## [v0.6.0]
 - ensure output from DICOM images is in acquisition order
 - provide convenience function `transformForNifti` to calculate the required transform to take *b*-vectors from scanner space to NIfTI space
 
