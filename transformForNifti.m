@@ -14,7 +14,7 @@ R = info.Transform.T(1:3,1:3);
 
 % Remove any pixel scaling
 pixdim = sqrt(diag(R*R'));
-R = R*diag(1./pixdim);
+R = diag(1./pixdim)*R;
 
 % Transform between DICOM convention (LPS) and NIfTI convention (RAS)
 T = R*diag([-1,-1,1]);
