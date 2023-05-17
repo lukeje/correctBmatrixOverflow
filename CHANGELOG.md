@@ -1,6 +1,10 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
+## [v0.6.1]
+Bugfix because Matlab gives the transpose of the sform/qform.
+Only important if pixel dimensions are not all equal.
+
 ## [v0.6.0]
 - ensure output from DICOM images is in acquisition order
 - provide convenience function `transformForNifti` to calculate the required transform to take *b*-vectors from scanner space to NIfTI space
