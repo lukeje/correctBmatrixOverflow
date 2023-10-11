@@ -80,9 +80,9 @@ If you want to read in *b*-vectors and -values from twix files, then you will ne
 You will then need to additionally add the subfolder `mapVBVD` to your Matlab path.
 
 ## Dependencies
-`readBvecsFromDicom` requires the Matlab [image processing toolbox](https://mathworks.com/help/images/index.html).
-
-`readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-vectors and -values from Siemens twix files.
+- `readBvecsFromDicom` requires the Matlab [image processing toolbox](https://mathworks.com/help/images/index.html).
+- if `readBvecsFromDicom` cannot find the necessary DICOM fields to extract the b-vectors using the image processing toolbox, then it can try to parse the private DICOM field containing the [Siemens CSA header](https://nipy.org/nibabel/dicom/siemens_csa.html) using [SPM](https://github.com/spm/spm12) if SPM is installed and on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
+- `readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-vectors and -values from Siemens twix files.
 
 ## Current status
 These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.

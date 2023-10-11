@@ -36,8 +36,17 @@ nRep=length(files);
 bNominal=zeros(1,nRep);
 t=zeros(1,nRep);
 B=zeros(6,nRep);
-for n = 1:nRep
-    [t(n),bNominal(n),B(:,n)] = read0019fields(fullfile(files(n).folder,files(n).name),dictFile);
+try
+    % try reading Siemens private DICOM fields
+    for n = 1:nRep
+        [t(n),bNominal(n),B(:,n)] = read0019fields(fullfile(files(n).folder,files(n).name),dictFile);
+    end
+catch %TODO: only catch specific error associated with missing private fields
+    % use SPM to read CSA header otherwise
+    %TODO: check whether SPM is installed
+    for n = 1:nRep
+        [t(n),bNominal(n),B(:,n)] = readCSAfields(fullfile(files(n).folder,files(n).name));
+    end
 end
 
 % Make sure that the output will match the acquisition order
@@ -78,20 +87,53 @@ try % run in try catch so we still reset the dicom dictionary back to "oldDictFi
         b=b_tmp;
     end
 
-    B_tmp=typecast(di.getAttributeByName('B_matrix'),'double');
-    if ~isempty(B_tmp) % empty for b=0 acquisitions
-        % Convert DICOM "xx xy xz yy yz zz" to TWIX "xx yy zz xy xz yz"
-        B=B_tmp([1,4,6,2,3,5]);
-
-        % Encode gradient polarity in B-matrix like in TWIX case
+    B=typecast(di.getAttributeByName('B_matrix'),'double');
+    if ~isempty(B) % empty for b=0 acquisitions
         v=typecast(di.getAttributeByName('DiffusionGradientDirection'),'double');
-        B(1:3)=B(1:3).*sign(v);
+        B=convert_DICOM_B_matrix(B,v);
+    else
+        B=zeros(6,1);
     end
+
     dicomdict("set",oldDictFile); % make sure change to dictionary is not persistent
 
 catch ME
     dicomdict("set",oldDictFile); % make sure change to dictionary is not persistent
     rethrow(ME)
 end
+
+end
+
+function [t,b,B] = readCSAfields(dicomFile)
+
+hdr=spm_dicom_headers(dicomFile);
+CSA=hdr{1}.CSAImageHeaderInfo;
+
+t=hdr{1}.AcquisitionNumber;
+
+bIdx=strcmp({CSA.name},'B_value');
+b=str2double(CSA(bIdx).item((1:CSA(bIdx).vm)).val);
+
+BIdx=strcmp({CSA.name},'B_matrix');
+if any(BIdx)
+    B=str2double({CSA(BIdx).item((1:CSA(BIdx).vm)).val});
+
+    vIdx=strcmp({CSA.name},'DiffusionGradientDirection');
+    v=str2double({CSA(vIdx).item(1:CSA(vIdx).vm).val});
+    
+    B=convert_DICOM_B_matrix(B,v);
+else
+    B=zeros(6,1);
+end
+
+end
+
+% Convert DICOM B-matrix format to TWIX B-matrix format
+function B=convert_DICOM_B_matrix(B,v)
+% Convert DICOM "xx xy xz yy yz zz" to TWIX "xx yy zz xy xz yz"
+B=B([1,4,6,2,3,5]);
+
+% Encode gradient polarity in B-matrix like in TWIX case
+B(1:3)=B(1:3).*sign(v);
 
 end
