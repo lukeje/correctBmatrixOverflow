@@ -1,3 +1,6 @@
 [submodule "mapVBVD"]
 	path = mapVBVD
 	url = https://github.com/pehses/mapVBVD
+[submodule "ismrmrd"]
+	path = ismrmrd
+	url = https://github.com/ismrmrd/ismrmrd.git
