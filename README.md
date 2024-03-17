@@ -44,7 +44,7 @@ It will also output the nominal *b*-values to `output_folder/input_twix_file_nom
 
 You can alternatively provide an already generated twix object, for example:
 ```matlab
-twixobj = mapVBVD('input_twix_folder/input_twix_file.dat')
+twixobj = mapVBVD('input_twix_folder/input_twix_file.dat');
 readBvecsFromTwix(twixobj, 'output_folder/');
 ```
 which will do the same as the first example.
@@ -52,6 +52,26 @@ This can be useful to avoid having to repeat reading in the twix object if it is
 
 Notes:
 - [mapVBVD](https://github.com/pehses/mapVBVD) is used to read the twix file (see [Dependencies](#dependencies) below).
+- This script assumes that different diffusion encodings are indexed by the "repetition" index.
+- A transformation matrix may be supplied in the same way as in the DICOM example.
+
+### Read from MRD file
+```matlab
+readBvecsFromMrd('input_mrd_folder/input_mrd_file.h5', 'output_folder/');
+```
+will read in the MRD file `input_mrd_folder/input_mrd_file.h5` and write out the *b*-vectors and *b*-values of the last acquired line in each repetition to `output_folder/input_mrd_file.bvec` and `output_folder/input_mrd_file.bval`, respectively.
+It will also output the nominal *b*-values to `output_folder/input_mrd_file_nominal.bval`.
+
+You can alternatively provide an already generated MRD object, for example:
+```matlab
+mrd = ismrmrd.Dataset('input_mrd_folder/input_mrd_file.h5', 'dataset');
+readBvecsFromMrd(mrd, 'output_folder/');
+```
+which will do the same as the first example.
+This can be useful to avoid having to repeat reading in the MRD file if it is already being used elsewhere in a script.
+
+Notes:
+- The Matlab implementation of MRD from the [ISMRMRD repository](https://github.com/ismrmrd/ismrmrd) is used to read the file.
 - This script assumes that different diffusion encodings are indexed by the "repetition" index.
 - A transformation matrix may be supplied in the same way as in the DICOM example.
 
@@ -63,28 +83,30 @@ git clone https://github.com/lukeje/correctBmatrixOverflow
 ```
 The folder `correctBmatrixOverflow` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
-If you want to read in *b*-vectors and -values from twix files, then you will also need to install [mapVBVD](https://github.com/pehses/mapVBVD).
-For convenience, this has been added as a git submodule which can be installed by running
+If you want to read in *b*-vectors and -values from twix files or MRD files, then you will also need to install [mapVBVD](https://github.com/pehses/mapVBVD) or [ISMRMRD](https://github.com/ismrmrd/ismrmrd), respectively.
+For convenience, these have been added as git submodules which can be installed by running
 ```sh
 cd correctBmatrixOverflow
 git submodule update --init
 ```
 after cloning the `correctBmatrixOverflow` repository.
-You will then need to additionally add the subfolder `mapVBVD` to your Matlab path.
+You will then need to additionally add the subfolder `mapVBVD` or `ismrmd/matlab` to your Matlab path.
 
 ### As a zip file
 The code can be downloaded as a [zip file](https://github.com/lukeje/correctBmatrixOverflow/archive/refs/heads/main.zip).
 After unzipping the code to an appropriate directory, the folder `correctBmatrixOverflow-main` should then be added to your [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html).
 
-If you want to read in *b*-vectors and -values from twix files, then you will need to add the files from [mapVBVD](https://github.com/pehses/mapVBVD) to the folder `mapVBVD`.
-You will then need to additionally add the subfolder `mapVBVD` to your Matlab path.
+If you want to read in *b*-vectors and -values from twix or MRD files, then you will need to manually install [mapVBVD](https://github.com/pehses/mapVBVD) or [ISMRMRD](https://github.com/ismrmrd/ismrmrd) and add the appropriate folders to your Matlab path.
 
 ## Dependencies
 `readBvecsFromDicom` requires the Matlab [image processing toolbox](https://mathworks.com/help/images/index.html).
 
 `readBvecsFromTwix` requires [mapVBVD](https://github.com/pehses/mapVBVD) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-vectors and -values from Siemens twix files.
 
+`readBvecsFromMrd` requires the `matlab` folder from the [ISMRMRD repository](https://github.com/ismrmrd/ismrmrd) to be on the [Matlab path](https://mathworks.com/help/matlab/matlab_env/add-remove-or-reorder-folders-on-the-search-path.html) in order to read *b*-vectors and -values from MRD files derived from Siemens diffusion sequences.
+
 ## Current status
-These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.
-Different software versions and sequences may differ in the information contained in the twix and DICOM headers, and therefore not work.
-It is the responsibility of the user to check that the results of using these scripts are sensible.
+- These scripts have only been tested on data from a Siemens Connectom scanner with software version VD11, where they were found to be able to correct the *b*-vectors measured at a *b*-value of 30,450 s/mm<sup>2</sup>.
+- Different software versions and sequences may differ in the information contained in the twix, MRD and DICOM headers, and therefore not work.
+- The diffusion vector information is only likely to be present in the expected part of the header if "free" mode is used for the diffusion vectors.
+- It is the responsibility of the user to check that the results of using these scripts are sensible.
