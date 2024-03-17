@@ -1,6 +1,9 @@
 # correctBmatrixOverflow changelog
 This changelog uses [semantic versioning](https://semver.org/)
 
+## [v0.7.0]
+Read bvecs from MRD files converted from Siemens diffusion sequences
+
 ## [v0.6.1]
 Bugfix because Matlab gives the transpose of the sform/qform.
 Only important if pixel dimensions are not all equal.
