@@ -17,6 +17,9 @@ classdef testutils
 
             % ensure all vectors normalised
             bvecs = bvecs./vecnorm(bvecs,2,1);
+            
+            % flip some components to match polarity stored in twix
+            bvecs([2,3],:) = -bvecs([2,3],:);
         end
 
         function B = convertbvecs2twixBs(bvals,bvecs)
@@ -69,10 +72,12 @@ classdef testutils
                 0, 1, 0;
                 -sind(beta), 0, cosd(beta)];
         end
+    end
 
+    methods
         % arbitrary rotation in 3D specified by zyz Euler angles
-        function R = rotzyzd(alpha,beta,gamma)
-            R = testutils.rotzd(gamma)*testutils.rotyd(beta)*testutils.rotzd(alpha);
+        function R = rotzyzd(obj,alpha,beta,gamma)
+            R = obj.rotzd(gamma)*obj.rotyd(beta)*obj.rotzd(alpha);
         end
 
     end
