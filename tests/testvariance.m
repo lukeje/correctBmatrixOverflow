@@ -1,7 +1,7 @@
 % test requires functions on above and below path
 addpath(genpath(fileparts(fileparts(mfilename("fullpath")))))
 
-% useful functions for the tests
+% useful functions for testing
 tu = testutils;
 
 % choose vector set
@@ -24,7 +24,7 @@ bvecs_fixed_high = readBvecsFromBmatrix(double(B_high_reshape) - 16385, bvals);
 
 % simulate spherical harmonic coefficients as decreasing exponentially with
 % increasing order. This means that we ignore axon radius for now, but this
-% could be included if desired. Scanner gradient frame assumed to be
+% could be included if desired. The scanner gradient frame is assumed to be
 % aligned with the spherical tensor axes so that off-diagonal coefficients
 % are zero, though this frame can be rotated below.
 order = 6; % maximum spherical harmonic order used to generate data
@@ -43,13 +43,13 @@ C = zeros(length(m),1);
 C(m==0) = c;
 
 % can specify rotation matrix to simulate axes of spherical tensors not
-% being aligned with scanner gradient axes. This ise asier than computing
+% being aligned with scanner gradient axes. This is easier than computing
 % Wigner rotation matrices for the spherical harmonic coefficients. This
 % rotation should not matter for calculation of the power in the spherical
 % harmonic coefficients. Here we choose this rotation randomly
-alpha = 90*rand(1);
-beta = 180*rand(1);
-gamma = 90*rand(1);
+alpha = 360*rand(1);
+beta  = 180*rand(1);
+gamma = 360*rand(1);
 R = tu.rotzyzd(alpha,beta,gamma);
 Rbvecs = R*bvecs;
 
