@@ -19,7 +19,7 @@ classdef testutils
             bvecs = bvecs./vecnorm(bvecs,2,1);
             
             % flip some components to match polarity stored in twix
-            bvecs([2,3],:) = -bvecs([2,3],:);
+            bvecs = diag([1,-1,-1])*bvecs;
         end
 
         function B = convertbvecs2twixBs(bvals,bvecs)
